@@ -308,7 +308,7 @@ export class FonctionPartagesService {
     modifierTypeDepartement:"Modifier Type de département",
 
     ajouterTransporteur:"Ajouter Transporteur",
-    ajouterTypeDepartement:"Ajouter Type de département",
+    ajoutTypeDepartement:"Ajouter Type de département",
 
     ajouterCategorie:"Ajouter Categorie",
     modifierCategorie:"Modifier Categorie",

@@ -65,6 +65,11 @@ const routes: Routes = [
         loadChildren: () => import('./comerce/transporteur/transporteur.module').then(module => module.TransporteurModule)
       },
 
+        {
+        path: 'type-departement',
+       loadChildren: () => import('./components/type-departement/type-departement.module').then(module => module.TypeDepartementModule)
+       },
+
       {
         path: 'importations',
         loadChildren: () => import('./importations-page/importations-page.module').then(module => module.ImportationsPageModule)

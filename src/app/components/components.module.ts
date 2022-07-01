@@ -8,18 +8,18 @@ import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbAccordionModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
 
 
-import { AjoutTransporteurComponent } from './transporteur/ajout-transporteur/ajout-transporteur.component';
-import { ListTransporteurComponent } from './transporteur/list-transporteur/list-transporteur.component';
-import { ModifierTransporteurComponent } from './transporteur/modifier-transporteur/modifier-transporteur.component';
-import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
+import { AjoutTypeDepartementComponent } from './type-departement/ajout-type-departement/ajout-type-departement.component';
+import { ListTypeDepartementComponent } from './type-departement/list-type-departement/list-type-departement.component';
+import { ModifierTypeDepartementComponent } from './type-departement/modifier-type-departement/modifier-type-departement.component';
+//import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
 //import { ListTypeDepartementComponent } from '../components/typeDepartement/list-type-departement/list-type-departement.component';
 
 @NgModule({
   declarations: [
-    AjoutTransporteurComponent,
-    ListTransporteurComponent,
-    ModifierTransporteurComponent,
-    PopupTransporteurComponent,
+    AjoutTypeDepartementComponent,
+    ListTypeDepartementComponent,
+    ModifierTypeDepartementComponent,
+    //PopupTransporteurComponent,
     //ListTypeDepartementComponent,
   ],
   imports: [
@@ -33,4 +33,4 @@ import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-tr
 
   ]
 })
-export class ComerceModule { }
+export class ComponentsModule { }

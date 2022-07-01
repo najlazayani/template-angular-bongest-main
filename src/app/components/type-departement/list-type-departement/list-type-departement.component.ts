@@ -1,59 +1,57 @@
-import {  Component, OnInit, Input } from '@angular/core';
+import {  Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InformationsService } from 'src/app/services/informations.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FonctionPartagesService } from 'src/app/services/fonction-partages.service';
 import { UtiliteService } from 'src/app/services/utilite.service';
-import { TransporteurService } from 'src/app/services/serviceBD_Commerce/transporteur.service';
+import { TypeDepartementService } from 'src/app/services/type-departement.service';
+//import { TransporteurService } from 'src/app/services/serviceBD_Commerce/transporteur.service';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { ModifierTransporteurComponent } from '../modifier-transporteur/modifier-transporteur.component';
-import { PopupTransporteurComponent } from '../../popups/popup-transporteur/popup-transporteur.component';
+//import { ModifierTransporteurComponent } from '../modifier-transporteur/modifier-transporteur.component';
+//import { PopupTransporteurComponent } from '../../popups/popup-transporteur/popup-transporteur.component';
 import { Transporteur } from 'src/app/model/modelCommerce/transporteur';
-
-
+import { TypeDepartement } from 'src/app/model/typeDepartement';
+import { Subscription } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
-  selector: 'app-list-transporteur',
-  templateUrl: './list-transporteur.component.html',
-  styleUrls: ['./list-transporteur.component.scss']
+  selector: 'app-list-type-departement',
+  templateUrl: './list-type-departement.component.html',
+  styleUrls: ['./list-type-departement.component.scss']
 })
-export class ListTransporteurComponent implements OnInit {
+export class ListTypeDepartementComponent implements OnInit, OnDestroy {
+
+
   title = 'appBootstrap';
   formC: FormGroup
   helloObject ="hello test";
   currentId ="";
    currentTr ="" ;
    Tr ;
+   typeDepartments : TypeDepartement[]=[];
+   private typeDepartementSubscription :Subscription;
   objectKeys = Object.keys;
   items = {
-    nom: "Nom",
-    numVehicule: "Vehicule",
-    gsm: "GSM",
-    tel: "Téléphone",
-    email: "Email",
+    libelle: "libelle",
+    imagePath: "icon",
+
   };
 
   itemsVariable = {
-    nom: "active",
-    numVehicule: "active",
-    gsm: "active",
-    tel: "active",
-    email: "active",
+    libelle: "active",
+    imagePath: "active",
+
   };
 
   request = {
     search: {
-      nom: "",
-      numVehicule: "",
-      gsm: "",
-      tel: "",
-      email: "",
+      libelle: "",
+      imagePath: "",
+
     },
     orderBy: {
-      nom:  0,
-      numVehicule:  0,
-      gsm:  0,
-      tel:  0,
-      email:  0,
+      libelle:  0,
+      imagePath:  0,
+
     },
     limit: 10,
     page: 1,
@@ -61,18 +59,14 @@ export class ListTransporteurComponent implements OnInit {
 
   oldRequest = {
     search: {
-      nom: "",
-      numVehicule: "",
-      gsm: "",
-      tel: "",
-      email: "",
+      libelle: "",
+      imagePath: "",
+
     },
     orderBy: {
-      nom:  0,
-      numVehicule:  0,
-      gsm:  0,
-      tel:  0,
-      email:  0,
+      libelle:  0,
+      imagePath:  0,
+
     },
     limit: 10,
     page: 1
@@ -87,13 +81,13 @@ export class ListTransporteurComponent implements OnInit {
       return
     }
     this.isLoading = true
-    this.transporteurServ.delete(this.idDeleteModal)
+    this.typeDepartementService.delete(this.idDeleteModal)
       .subscribe(
         res => {
           this.isLoading = false
           let resultat: any = res
           if (resultat.status) {
-            this.getTransporteurs()
+            this.getTypeDepartements()
             this.closeModalDelete()
           }
         },
@@ -107,7 +101,7 @@ export class ListTransporteurComponent implements OnInit {
   openModalDelete(id, params2) {
     this.idDeleteModal = id
     this.isOpenModalDelete = true
-    this.params1Delete = "Le transporteur"
+    this.params1Delete = "Le type de departement"
     this.params2Delete = params2
   }
 
@@ -121,31 +115,40 @@ export class ListTransporteurComponent implements OnInit {
     private utilite:UtiliteService,
     private fonctionPartagesService:FonctionPartagesService,
     private fb: FormBuilder,
-    private transporteurServ : TransporteurService,
+    private typeDepartementService : TypeDepartementService,
     public informationGenerale: InformationsService,
     private modalService: NgbModal
 
     ) {
     this.formC = this.fb.group({
-      nom: [''],
-      numVehicule: [''],
-      gsm: [''],
-      tel: [''],
-      email: [''],
+      libelle: [''],
+      imagePath: [''],
+
 
       limit: 10
     })
 
-    this.getTransporteurs()
+    this.getTypeDepartements()
 
   }
 
   ngOnInit(): void {
+    // this.typeDepartementService.getTypeDepartements();
+    // this.typeDepartementSubscription = this.typeDepartementService
+    // .getTypeDepartementsStream()
+    // .subscribe((typeDepartements : TypeDepartement[])
+    // => {
+    //   this.typeDepartements = typeDepartements
+    // })
+  }
+
+  ngOnDestroy() {
+    this.typeDepartementSubscription.unsubscribe();
   }
 
   isLoading = false
-  transporteurs = []
-  getTransporteurs() {
+  typeDepartements = []
+  getTypeDepartements() {
     if (this.isLoading) {
       return
     }
@@ -157,23 +160,23 @@ export class ListTransporteurComponent implements OnInit {
       this.request.page = 1
     }
     this.isLoading = true
-    this.transporteurServ.getAll(this.request)
+    this.typeDepartementService.getAll(this.request)
     .subscribe(
       res => {
         this.isLoading = false
         let resultat: any = res
         if (resultat.status) {
-          this.transporteurs = resultat.resultat.docs
+          this.typeDepartements = resultat.resultat.docs
           console.log(resultat)
           this.totalPage = resultat.resultat.pages
           this.oldRequest = resultat.request
           if (this.totalPage < this.request.page && this.request.page != 1) {
             this.request.page = this.totalPage
-            this.getTransporteurs()
+            this.getTypeDepartements()
           }
 
           if (!this.testSyncronisation(this.request, resultat.request) || (this.request.page != resultat.request.page)) {
-            this.getTransporteurs()
+            this.getTypeDepartements()
           }
         }
       },
@@ -208,27 +211,27 @@ export class ListTransporteurComponent implements OnInit {
   setLimitPage(newLimitPage: number) {
     this.request.limit = newLimitPage
     this.request.page = 1
-    this.getTransporteurs()
+    this.getTypeDepartements()
   }
 
   setPage(newPage: number) {
     this.request.page = newPage
-    this.getTransporteurs()
+    this.getTypeDepartements()
   }
 
-  titreFile = "Liste de transporteurs"
-  nameFile = "liste_transporteurs"
+  titreFile = "Liste de TypeDepartements"
+  nameFile = "liste_TypeDepartements"
   printout() {
-    this.utilite.printout(this.transporteurs, this.items, this.titreFile)
+    this.utilite.printout(this.typeDepartements, this.items, this.titreFile)
   }
 
   generatePDF() {
-    this.utilite.generatePDF(this.transporteurs, this.items, this.titreFile, this.nameFile)
+    this.utilite.generatePDF(this.typeDepartements, this.items, this.titreFile, this.nameFile)
   }
 
   exportexcel() {
     /* table id is passed over here */
-    this.utilite.exportexcel(this.transporteurs, this.items, this.titreFile, this.nameFile)
+    this.utilite.exportexcel(this.typeDepartements, this.items, this.titreFile, this.nameFile)
   }
 
    //open modal ajout Element
@@ -238,25 +241,25 @@ export class ListTransporteurComponent implements OnInit {
 
    closeModalAjoutElement(){
      this.isOpenModalAjoutElement = false
-     this.getTransporteurs()
+     this.getTypeDepartements()
    }
 
-   openModalAjoutTransporteur(){
-    console.log(this.typeElement);
-      this.typeElement = this.fonctionPartagesService.titreOfModal.ajouterTransporteur
-      this.isOpenModalAjoutElement = true
-   }
+  //  openModalAjoutTransporteur(){
+  //   console.log(this.typeElement);
+  //     this.typeElement = this.fonctionPartagesService.titreOfModal.ajouterTransporteur
+  //     this.isOpenModalAjoutElement = true
+  //  }
 
-   openModalModifierTransporteur(id){
-    console.log("edit najla");
-    console.log(this.idAjoutElementModal);
-     this.idAjoutElementModal = id
-     console.log(this.typeElement);
+  //  openModalModifierTransporteur(id){
+  //   console.log("edit najla");
+  //   console.log(this.idAjoutElementModal);
+  //    this.idAjoutElementModal = id
+  //    console.log(this.typeElement);
 
-     this.typeElement = this.fonctionPartagesService.titreOfModal.modifierTransporteur
-     console.log(this.typeElement);
-     this.isOpenModalAjoutElement = true
-  }
+  //    this.typeElement = this.fonctionPartagesService.titreOfModal.modifierTransporteur
+  //    console.log(this.typeElement);
+  //    this.isOpenModalAjoutElement = true
+  // }
 
 
   changeCroissante(key) {
@@ -276,7 +279,7 @@ export class ListTransporteurComponent implements OnInit {
       }
     }
 
-    this.getTransporteurs()
+    this.getTypeDepartements()
   }
 
   activationCroissante(buttons1, buttons2) {
@@ -293,11 +296,11 @@ export class ListTransporteurComponent implements OnInit {
     classList += " active-buttons-croissante"
     buttons2.setAttribute("class", classList)
   }
-  ouvrirFenetreAjout(){
-    console.log("najla is here!")
-    this.router.navigateByUrl('/transporteur/ajout');
+  // ouvrirFenetreAjout(){
+  //   console.log("najla is here!")
+  //   this.router.navigateByUrl('/type-departement/ajout');
 
-  }
+  // }
   ouvrirFenetreModifier(id){
     //console.log("item!"+item);
     //console.log(id);
@@ -305,33 +308,34 @@ export class ListTransporteurComponent implements OnInit {
     //const ref = this.modalService.open(ModifierTransporteurComponent)
      //ref.componentInstance.item=item;
    // this.router.navigateByUrl('/transporteur/modifier/:id');
-   this.currentId=id;
-   this.transporteurServ.currentID=this.currentId;
+  //  this.currentId=id;
+  //  this.transporteurServ.currentID=this.currentId;
    //this.Tr = new Transporteur();
 
-  this.Tr = this.transporteurServ.get(id).subscribe(
-  res => {
-    let resultat: any = res
-    if (resultat.status) {
+  // this.Tr = this.transporteurServ.get(id).subscribe(
+  // res => {
+  //   let resultat: any = res
+  //   if (resultat.status) {
 
-      this.currentTr = resultat.resultat.docs
-      console.log(resultat)
-      console.log(this.currentTr )
-  }});
-      console.log(this.Tr );
+  //     this.currentTr = resultat.resultat.docs
+  //     console.log(resultat)
+  //     console.log(this.currentTr )
+  // }});
+  //     console.log(this.Tr );
 
 
 
 
   }
 
-  id = ""
-  open(content , id) {
+   id = ""
+  open(content, id ) {
 
     this.id = id
     console.log("test id open"+id);
     console.log("test content");
     console.log(content);
+    console.log(id)
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       //this.modalService.open(PopupTransporteurComponent,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -397,15 +401,4 @@ export class ListTransporteurComponent implements OnInit {
 
 
 
-
-
 }
-
-
-
-
-
-
-
-
-

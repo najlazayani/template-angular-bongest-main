@@ -1,4 +1,4 @@
-import { ModifierTransporteurRoutingModule } from './modifier-transporteur-routing.module';
+import { ModifierTypeDepartementRoutingModule } from './modifier-type-departement-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -9,8 +9,8 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   declarations: [],
   imports: [
     CommonModule,
-    ModifierTransporteurRoutingModule,
+    ModifierTypeDepartementRoutingModule,
     SharedModule
   ]
 })
-export class ModifierTransporteurModule { }
+export class ModifierTypeDepartementModule { }
