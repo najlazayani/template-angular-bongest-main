@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [hidHeader]="true">
+            <!-- Partie Header -->
+            <div class="form-group row" style="justify-content: space-between !important;">
+                <div class="col-md-12">
+                    <div class="text-titre">
+                        <h3>Importations Excel</h3>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <!-- Partie formulaire à Gauche en haut -->
+               
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="plan" class="col-sm-2 col-form-label">Fichier articles vide (.xlsx)</label>
+
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary" (click)="telechargerExel()"> Télécharger </button>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="plan" class="col-sm-2 col-form-label">Importer Fichier articles (.xlsx)</label>
+                            <div class="col-sm-4">
+                                <input #fileInput id="file" type="file" class="form-control"
+                                    [(ngModel)]="componentField" (change)="selectedM($event)">
+                            </div>
+
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary"
+                                    (click)="fileInput.value=''; annulerImage(); fileInput.click()"> Annuler
+                                </button>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <button *ngIf="!isLoading" class="btn btn-primary" (click)="importFichierArticles()"> Afficher </button>
+                                <button *ngIf="!isLoading && articles.length > 0" class="btn btn-info" (click)="saveFichierArticles()"> Enregistrer </button>
+                                <button *ngIf="isLoading" class="btn btn-primary" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Chargement...
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="output">
+    
+                            <thead>
+                                <tr>
+                                    <th colspan="100" style="text-align: center;">
+                                        Les articles de votre fichier
+                                    </th>
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let key of objectKeys(shemaArticleExcel)">
+                                        {{shemaArticleExcel[key]}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of articles">
+                                    <td *ngFor="let key of objectKeys(shemaArticleExcel)">
+                                        <span *ngIf="fonctionPartagesService.colonnesQuantites.includes(key)" style="float:right;">{{fonctionPartagesService.getFormaThreeAfterVerguleNomber(item[key])}}</span>
+                                        <span *ngIf="fonctionPartagesService.colonnesPrix.includes(key)" style="float:right;">{{fonctionPartagesService.getFormaThreeAfterVerguleQuantite(item[key])}}</span>
+                                        <span *ngIf="fonctionPartagesService.colonnesDates.includes(key)" style="text-align: center; display: block;">{{fonctionPartagesService.getDate(item[key], 'yyyy-MM-dd')}}</span>
+                                        <span *ngIf="fonctionPartagesService.colonnesOuiNon.includes(key)" style="text-align: center; display: block;"> <i class="fas fa-check-square" style="font-size: 15px;" *ngIf="item[key] == 'oui'"></i> <i class="fas fa-square" style="font-size: 15px;" *ngIf="item[key] != 'oui'"></i> </span>
+                                        <span *ngIf="!(fonctionPartagesService.colonnesDates.includes(key) || fonctionPartagesService.colonnesQuantites.includes(key) || fonctionPartagesService.colonnesPrix.includes(key) || fonctionPartagesService.colonnesOuiNon.includes(key))">{{item[key]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </app-card>
