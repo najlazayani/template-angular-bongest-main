@@ -32,6 +32,12 @@ import { ImportationsPageComponent } from './importations-page/importations-page
 import { ListTypeDepartementComponent } from './components/type-departement/list-type-departement/list-type-departement.component';
 import { TypeDepartementModule } from './components/type-departement/type-departement.module';
 import { ComponentsModule } from './components/components.module';
+import { ListTypeCompteurComponent } from './components/type-compteur/list-type-compteur/list-type-compteur.component';
+import { AjoutTypeCompteurComponent } from './components/type-compteur/ajout-type-compteur/ajout-type-compteur.component';
+import { ModifierTypeCompteurComponent } from './components/type-compteur/modifier-type-compteur/modifier-type-compteur.component';
+
+
+
 @NgModule({
   declarations: [
 
@@ -53,8 +59,10 @@ import { ComponentsModule } from './components/components.module';
     SuperAdminComponent,
     ImportationsPageComponent,
 
+
   ],
   imports: [
+
 
     ComerceModule,
     SharedGlobalModule,

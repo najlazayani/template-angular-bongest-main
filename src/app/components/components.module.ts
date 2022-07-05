@@ -11,6 +11,12 @@ import { NgbAccordionModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap
 import { AjoutTypeDepartementComponent } from './type-departement/ajout-type-departement/ajout-type-departement.component';
 import { ListTypeDepartementComponent } from './type-departement/list-type-departement/list-type-departement.component';
 import { ModifierTypeDepartementComponent } from './type-departement/modifier-type-departement/modifier-type-departement.component';
+import { ListTaxeComponent } from './taxe/list-taxe/list-taxe.component';
+import { AjoutTaxeComponent } from './taxe/ajout-taxe/ajout-taxe.component';
+import { ModifierTaxeComponent } from './taxe/modifier-taxe/modifier-taxe.component';
+import { AjoutTypeCompteurComponent } from './type-compteur/ajout-type-compteur/ajout-type-compteur.component';
+import { ListTypeCompteurComponent } from './type-compteur/list-type-compteur/list-type-compteur.component';
+import { ModifierTypeCompteurComponent } from './type-compteur/modifier-type-compteur/modifier-type-compteur.component';
 //import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
 //import { ListTypeDepartementComponent } from '../components/typeDepartement/list-type-departement/list-type-departement.component';
 
@@ -19,6 +25,12 @@ import { ModifierTypeDepartementComponent } from './type-departement/modifier-ty
     AjoutTypeDepartementComponent,
     ListTypeDepartementComponent,
     ModifierTypeDepartementComponent,
+    ListTaxeComponent,
+    AjoutTaxeComponent,
+    ModifierTaxeComponent,
+    AjoutTypeCompteurComponent,
+    ListTypeCompteurComponent,
+    ModifierTypeCompteurComponent
     //PopupTransporteurComponent,
     //ListTypeDepartementComponent,
   ],

@@ -69,6 +69,14 @@ const routes: Routes = [
         path: 'type-departement',
        loadChildren: () => import('./components/type-departement/type-departement.module').then(module => module.TypeDepartementModule)
        },
+       {
+       path: 'taxe',
+      loadChildren: () => import('./components/taxe/taxe.module').then(module => module.TaxeModule)
+      },
+      {
+        path: 'type-compteur',
+       loadChildren: () => import('./components/type-compteur/type-compteur.module').then(module => module.TypeCompteurModule)
+       },
 
       {
         path: 'importations',
