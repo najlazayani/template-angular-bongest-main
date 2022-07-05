@@ -16,6 +16,27 @@ export class AjoutTypeDepartementComponent implements OnInit {
   lienAjoute = "/typeDepartements/newTypeDepartement"
   objectKeys = Object.keys;
 
+
+  typeDepartements = []
+  getAllParametres() {
+    this.isLoading = true
+
+  this.typeDepartementService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.typeDepartements = resultat.typeDepartements
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
+
+
   @Output() closeModalAjoutTypeDepartement = new EventEmitter<string>();
 
   @Input() isPopup = false
@@ -58,6 +79,8 @@ imageData : string
     this.typeDepartementFormGroup= new FormGroup({
       name :new FormControl(null),
     image : new FormControl(null)});
+
+    this.getAllParametres()
   }
 
   file
@@ -93,11 +116,43 @@ imageData : string
       })
   }
 
+  controleInputs() {
+    //reset Formulaire
+    for (let key in this.erreurTypeDepartement) {
+      this.erreurTypeDepartement[key] = ""
+      if(document.getElementById(key) != null){
+        document.getElementById(key).classList.remove("border-erreur")
+      }
+    }
+
+
+    var isValid = true
+    //validation
+    if (this.typeDepartement.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurTypeDepartement.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+
+   if (this.typeDepartement.libelle != "" && this.typeDepartements.filter(x => x.libelle == this.typeDepartement.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurTypeDepartement.libelle = "existe déja"
+    isValid = false
+  }
+
+
+
+    return isValid
+  }
+
   ajoutTypeDepartement(imagePath) {
-    if (!this.fnctModel.controleInput(this.erreurTypeDepartement, this.typeDepartement)) {
+    if (!this.controleInputs()) {
       this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
       return
     }
+
     for (let key in this.typeDepartement) {
       this.request[key] = this.typeDepartement[key]
     }

@@ -71,7 +71,7 @@ delete(id): Observable<any> {
   return this.http.post(`${this.host+ "deleteTypeDepartement" }/${id}`, {});
 }
 
-parametre(id): Observable<any> {
-  return this.http.get(`${this.host+ "getAllParametres"}/${id}`);
+parametre(): Observable<any> {
+  return this.http.get(`${this.host+ "getAllParametres"}`);
 }
 }

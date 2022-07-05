@@ -34,6 +34,7 @@ export class AjoutTypeCompteurComponent implements OnInit {
 
     erreurTypeCompteur = {
       libelle: "",
+
     }
 
   constructor(private notificationToast: ToastNotificationService,
@@ -52,6 +53,7 @@ getColor(){
 console.log(inputValue);
 }
 file
+
 onFileSelect(event:Event){
   console.log("file selected")
   var file = (event.target as HTMLInputElement).files[0];
