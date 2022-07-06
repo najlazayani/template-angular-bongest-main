@@ -29,12 +29,9 @@ import { NavCenterComponent } from './theme/layout/admin/nav-bar/nav-center/nav-
 import { SharedGlobalModule } from './shared-global/shared-global.module';
 import { SuperAdminComponent } from './theme/layout/super-admin/super-admin.component';
 import { ImportationsPageComponent } from './importations-page/importations-page.component';
-import { ListTypeDepartementComponent } from './components/type-departement/list-type-departement/list-type-departement.component';
-import { TypeDepartementModule } from './components/type-departement/type-departement.module';
+
 import { ComponentsModule } from './components/components.module';
-import { ListTypeCompteurComponent } from './components/type-compteur/list-type-compteur/list-type-compteur.component';
-import { AjoutTypeCompteurComponent } from './components/type-compteur/ajout-type-compteur/ajout-type-compteur.component';
-import { ModifierTypeCompteurComponent } from './components/type-compteur/modifier-type-compteur/modifier-type-compteur.component';
+
 
 
 

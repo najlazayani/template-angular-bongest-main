@@ -18,11 +18,9 @@ export class ModifierTypeDepartementComponent implements OnInit {
  objectKeys = Object.keys;
  idT = this.typeDepartementService.currentID;
 
- @Output() closeModalModifierTypeDepartement = new EventEmitter<string>();
+
 
   @Input() id = ""
-  @Input() isOpenModalAjoutTransporteur = false
-
   request = new TypeDepartement()
     typeDepartement = new TypeDepartement()
     erreurTypeDepartement = {
@@ -30,7 +28,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
     }
     isLoading = false
   typeDepartId;
-
+  typeDepartements = []
   private routeSub: Subscription;
 
 
@@ -41,22 +39,12 @@ export class ModifierTypeDepartementComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
-      const typeDeparteId = params['id'];
-      console.log("test id here");
-      console.log(typeDeparteId);
-      this.typeDepartId = typeDeparteId;
 
-    });
-    console.log("test this.transporId");
-    console.log(this.typeDepartId);
-    this.getTypeDepartement(this.typeDepartId);
+    this.getTypeDepartement();
 
   }
-  getTypeDepartement(id) {
-    console.log("getTypeDepartementTest"+id);
+  getTypeDepartement() {
+    console.log("getTypeDepartementTest"+this.id);
     this.isLoading = true
     this.typeDepartementService.get(this.id)
       .subscribe(
@@ -69,6 +57,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
             this.typeDepartement[key] = this.request[key]
           }
           }
+          this.getAllParametres()
         },
         error => {
           this.isLoading = false
@@ -79,32 +68,38 @@ export class ModifierTypeDepartementComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (this.id.length > 1) {
 
-      this.getTypeDepartement(this.id)
+      this.getTypeDepartement()
     }
 
 
   }
   controleInputs() {
+    //reset Formulaire
     for (let key in this.erreurTypeDepartement) {
       this.erreurTypeDepartement[key] = ""
       if(document.getElementById(key) != null){
         document.getElementById(key).classList.remove("border-erreur")
       }
-    }
-    var isValid = true
-    for (let key in this.erreurTypeDepartement) {
-      if (this.typeDepartement[key] == "") {
-        if(document.getElementById(key) != null){
-          document.getElementById(key).classList.add("border-erreur")
-        }
-        this.erreurTypeDepartement[key] = "Veuillez remplir ce champ"
-        isValid = false
-      }
-    }
+    }var isValid = true
+    //validation
+    if (this.typeDepartement.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurTypeDepartement.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+   console.log(this.typeDepartements);
+   if (this.typeDepartement.libelle != "" && this.typeDepartements.filter(x => x.libelle == this.typeDepartement.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurTypeDepartement.libelle = "existe déja"
+    isValid = false
+  }
+
+
 
     return isValid
   }
-
   modifierTypeDepartement(imagePath) {
     if (!this.controleInputs()) {
       this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
@@ -125,7 +120,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
 
           console.log("test resultat"+res);
           if (resultat.status) {
-            this.closeModifierTypeDepartement()
+
             this.notificationToast.showSuccess("Votre type de departement est bien modifiée !")
           }
         },
@@ -140,9 +135,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
       this.typeDepartement[key] = ""
     }
   }
-  closeModifierTypeDepartement(){
-    this.closeModalModifierTypeDepartement.emit();
-  }
+
   file;
   imageData : string
   onFileSelect(event:Event){
@@ -177,4 +170,23 @@ export class ModifierTypeDepartementComponent implements OnInit {
         console.log(err)
       })
   }
+  getAllParametres() {
+    this.isLoading = true
+
+  this.typeDepartementService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.typeDepartements = resultat.typeDepartements.filter(x=>x.id != this.id)
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
+
+
 }

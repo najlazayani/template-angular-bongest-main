@@ -134,6 +134,14 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-shopping-cart',
         children: [
+          {
+            id: 'famille-produit',
+            title: 'Famille de produit',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/famille-produit/list',
+            icon: 'feather icon-file-minus',
+          },
 
           {
             id: 'type-plat',
@@ -151,14 +159,8 @@ const NavigationItems = [
             url: '',
             icon: 'feather icon-file-minus'
           },
-          {
-            id: 'famille-produit',
-            title: 'Famille de produit',
-            type: 'item',
-            classes: 'nav-item',
-            url: '',
-            icon: 'feather icon-file-minus'
-          },
+
+
 
         ]
       }

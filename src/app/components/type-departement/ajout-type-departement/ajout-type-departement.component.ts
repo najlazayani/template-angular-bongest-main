@@ -134,7 +134,7 @@ imageData : string
      this.erreurTypeDepartement.libelle = "Veuillez remplir ce champ"
      isValid = false
    }
-
+console.log(this.typeDepartements);
    if (this.typeDepartement.libelle != "" && this.typeDepartements.filter(x => x.libelle == this.typeDepartement.libelle).length > 0) {
     document.getElementById("libelle").classList.add("border-erreur")
 

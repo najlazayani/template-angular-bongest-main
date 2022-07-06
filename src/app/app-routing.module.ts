@@ -77,6 +77,10 @@ const routes: Routes = [
         path: 'type-compteur',
        loadChildren: () => import('./components/type-compteur/type-compteur.module').then(module => module.TypeCompteurModule)
        },
+       {
+        path: 'famille-produit',
+        loadChildren: () => import('./components/famille-produit/famille-produit.module').then(module => module.FamilleProduitModule)
+      },
 
       {
         path: 'importations',

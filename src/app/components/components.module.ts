@@ -17,6 +17,9 @@ import { ModifierTaxeComponent } from './taxe/modifier-taxe/modifier-taxe.compon
 import { AjoutTypeCompteurComponent } from './type-compteur/ajout-type-compteur/ajout-type-compteur.component';
 import { ListTypeCompteurComponent } from './type-compteur/list-type-compteur/list-type-compteur.component';
 import { ModifierTypeCompteurComponent } from './type-compteur/modifier-type-compteur/modifier-type-compteur.component';
+import { AjoutFamilleProduitComponent } from './famille-produit/ajout-famille-produit/ajout-famille-produit.component';
+import { ListFamilleProduitComponent } from './famille-produit/list-famille-produit/list-famille-produit.component';
+import { ModifierFamilleProduitComponent } from './famille-produit/modifier-famille-produit/modifier-famille-produit.component';
 //import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
 //import { ListTypeDepartementComponent } from '../components/typeDepartement/list-type-departement/list-type-departement.component';
 
@@ -30,7 +33,10 @@ import { ModifierTypeCompteurComponent } from './type-compteur/modifier-type-com
     ModifierTaxeComponent,
     AjoutTypeCompteurComponent,
     ListTypeCompteurComponent,
-    ModifierTypeCompteurComponent
+    ModifierTypeCompteurComponent,
+    AjoutFamilleProduitComponent,
+    ListFamilleProduitComponent,
+    ModifierFamilleProduitComponent
     //PopupTransporteurComponent,
     //ListTypeDepartementComponent,
   ],

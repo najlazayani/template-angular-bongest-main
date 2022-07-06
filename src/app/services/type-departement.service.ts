@@ -45,6 +45,7 @@ getTypeDepartementsStream(){
 
 get(id): Observable<any> {
   console.log("test id service"+id);
+
   return this.http.get(`${this.host + "getById"}/${id}`);
 }
 
