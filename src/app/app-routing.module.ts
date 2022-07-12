@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
 import { SuperAdminComponent } from './theme/layout/super-admin/super-admin.component';
+import { ListFamilleComponent } from './Components/famille-equipement/list-famille/list-famille.component';
+import { AjoutFamilleComponent } from './Components/famille-equipement/ajout-famille/ajout-famille.component';
+import { ModifierFamilleComponent } from './Components/famille-equipement/modifier-famille/modifier-famille.component';
 
 const routes: Routes = [
 
@@ -86,6 +89,25 @@ const routes: Routes = [
         path: 'type-plat',
        loadChildren: () => import('./components/type-plat/type-plat.module').then(module => module.TypePlatModule)
        },
+      {
+        path: 'typeequipement',
+        loadChildren: () => import('./Components/type-equipement/type-equipement.module.').then(module => module.EquipementModule)
+      },
+      {
+        path: 'reclamation',
+        loadChildren: () => import('./Components/etat-reclamation/reclamation.module').then(module => module.ReclamationModule)
+      },
+      {
+        path: 'famille',
+        loadChildren: () => import('./Components/famille-equipement/famille.module').then(module => module.FamilleModule)
+      },
+
+
+
+      {
+        path: 'parametre',
+        loadChildren: () => import('./Components/parametres/parametres.module').then(module => module.ParametresModule)
+      },
 
 
       {

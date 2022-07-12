@@ -31,6 +31,7 @@ import { SuperAdminComponent } from './theme/layout/super-admin/super-admin.comp
 import { ImportationsPageComponent } from './importations-page/importations-page.component';
 
 import { ComponentsModule } from './components/components.module';
+import { FamilleModule } from './Components/famille-equipement/famille.module';
 
 
 
@@ -59,8 +60,8 @@ import { ComponentsModule } from './components/components.module';
 
   ],
   imports: [
-
-
+    FamilleModule,
+    ComponentsModule,
     ComerceModule,
     SharedGlobalModule,
     SharedModule,
@@ -75,7 +76,7 @@ import { ComponentsModule } from './components/components.module';
     FormsModule, ReactiveFormsModule,
     NgbAccordionModule, NgbCollapseModule,
     NgbPopoverModule,
-    ComponentsModule,
+
 
 
   ],
