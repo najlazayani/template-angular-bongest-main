@@ -16,6 +16,27 @@ export class AjoutTypeCompteurComponent implements OnInit {
   //lienAjoute = "/typeDepartements/newTypeDepartement"
   objectKeys = Object.keys;
   imageData : string
+  typeCompteurs = []
+
+  getAllParametres() {
+    this.isLoading = true
+
+  this.typeCompteurService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.typeCompteurs = resultat.typeCompteurs
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
+
+
   ngOnChanges(changes: SimpleChanges) {
     // if(this.isOpenModalAjoutTypeDepartement == true){
       for (let key in this.erreurTypeCompteur) {
@@ -46,6 +67,7 @@ export class AjoutTypeCompteurComponent implements OnInit {
     this.typeCompteurFormGroup= new FormGroup({
       name :new FormControl(null),
     image : new FormControl(null)});
+    this.getAllParametres();
 
   }
 getColor(){
@@ -85,7 +107,7 @@ uploadImage(){
 }
 
 ajoutTypeCompteur(imagePath) {
-  if (!this.fnctModel.controleInput(this.erreurTypeCompteur, this.typeCompteur)) {
+  if (!this.controleInputs()) {
     this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
     return
   }
@@ -128,5 +150,35 @@ this.imageData = null;
 
 }
 
+controleInputs() {
+  //reset Formulaire
+  for (let key in this.erreurTypeCompteur) {
+    this.erreurTypeCompteur[key] = ""
+    if(document.getElementById(key) != null){
+      document.getElementById(key).classList.remove("border-erreur")
+    }
+  }
+
+
+  var isValid = true
+  //validation
+  if (this.typeCompteur.libelle == "") {
+   document.getElementById("libelle").classList.add("border-erreur")
+
+   this.erreurTypeCompteur.libelle = "Veuillez remplir ce champ"
+   isValid = false
+ }
+console.log(this.typeCompteurs);
+ if (this.typeCompteur.libelle != "" && this.typeCompteurs.filter(x => x.libelle == this.typeCompteur.libelle).length > 0) {
+  document.getElementById("libelle").classList.add("border-erreur")
+
+  this.erreurTypeCompteur.libelle = "existe déja"
+  isValid = false
+}
+
+
+
+  return isValid
+}
 
 }

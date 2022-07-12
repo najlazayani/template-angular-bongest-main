@@ -26,6 +26,7 @@ export class ModifierTypeCompteurComponent implements OnInit {
     }
     isLoading = false
   typeDepartId;
+  typeCompteurs = []
   private routeSub: Subscription;
 
   constructor(private typeCompteurService:TypeCompteurService,
@@ -35,21 +36,11 @@ export class ModifierTypeCompteurComponent implements OnInit {
     private notificationToast: ToastNotificationService,) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
-      const typeDeparteId = params['id'];
-      console.log("test id here");
-      console.log(typeDeparteId);
-      this.typeDepartId = typeDeparteId;
 
-    });
-    console.log("test this.transporId");
-    console.log(this.typeDepartId);
-    this.getTypeCompteur(this.typeDepartId);
+    this.getTypeCompteur();
   }
-  getTypeCompteur(id) {
-    console.log("getTypeDepartementTest"+id);
+  getTypeCompteur() {
+
     this.isLoading = true
     this.typeCompteurService.get(this.id)
       .subscribe(
@@ -62,6 +53,7 @@ export class ModifierTypeCompteurComponent implements OnInit {
             this.typeCompteur[key] = this.request[key]
           }
           }
+          this.getAllParametres()
         },
         error => {
           this.isLoading = false
@@ -71,32 +63,38 @@ export class ModifierTypeCompteurComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (this.id.length > 1) {
 
-      this.getTypeCompteur(this.id)
+      this.getTypeCompteur()
     }
 
 
   }
   controleInputs() {
+    //reset Formulaire
     for (let key in this.erreurTypeCompteur) {
       this.erreurTypeCompteur[key] = ""
       if(document.getElementById(key) != null){
         document.getElementById(key).classList.remove("border-erreur")
       }
-    }
-    var isValid = true
-    for (let key in this.erreurTypeCompteur) {
-      if (this.typeCompteur[key] == "") {
-        if(document.getElementById(key) != null){
-          document.getElementById(key).classList.add("border-erreur")
-        }
-        this.erreurTypeCompteur[key] = "Veuillez remplir ce champ"
-        isValid = false
-      }
-    }
+    }var isValid = true
+    //validation
+    if (this.typeCompteur.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurTypeCompteur.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+   console.log(this.typeCompteurs);
+   if (this.typeCompteur.libelle != "" && this.typeCompteurs.filter(x => x.libelle == this.typeCompteur.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurTypeCompteur.libelle = "existe déja"
+    isValid = false
+  }
+
+
 
     return isValid
   }
-
   modifierTypeCompteur(imagePath) {
     if (!this.controleInputs()) {
       this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
@@ -167,6 +165,22 @@ export class ModifierTypeCompteurComponent implements OnInit {
       })
   }
 
+  getAllParametres() {
+    this.isLoading = true
 
+  this.typeCompteurService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.typeCompteurs = resultat.typeCompteurs.filter(x=>x.id != this.id)
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
 
 }

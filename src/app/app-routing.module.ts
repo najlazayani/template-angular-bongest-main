@@ -83,6 +83,12 @@ const routes: Routes = [
       },
 
       {
+        path: 'type-plat',
+       loadChildren: () => import('./components/type-plat/type-plat.module').then(module => module.TypePlatModule)
+       },
+
+
+      {
         path: 'importations',
         loadChildren: () => import('./importations-page/importations-page.module').then(module => module.ImportationsPageModule)
       },

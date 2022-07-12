@@ -85,7 +85,7 @@ imageData : string
 
   file
 
-  onFileSelect(event:Event){
+  onFileSelect(){
     console.log("file selected")
     var file = (event.target as HTMLInputElement).files[0];
     this.typeDepartementFormGroup.patchValue({image : file});

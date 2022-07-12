@@ -5,7 +5,7 @@ import { Taxe } from 'src/app/model/taxe';
 import { InformationsService } from 'src/app/services/informations.service';
 import { TaxeService } from 'src/app/services/taxe.service';
 import { ToastNotificationService } from 'src/app/services/toast-notification.service';
-
+import { ListTaxeComponent } from '../list-taxe/list-taxe.component';
 @Component({
   selector: 'app-modifier-taxe',
   templateUrl: './modifier-taxe.component.html',
@@ -19,6 +19,7 @@ export class ModifierTaxeComponent implements OnInit {
   @Input() id = ""
   request = new Taxe()
   taxe = new Taxe()
+  taxes = []
   erreurTaxe = {
     taux: "",
   }
@@ -26,7 +27,7 @@ export class ModifierTaxeComponent implements OnInit {
   transporId;
   ngOnChanges(changes: SimpleChanges) {
     if (this.id.length > 1) {
-      this.getTaxe(this.id)
+      this.getTaxe();
     }
 
 
@@ -35,26 +36,19 @@ export class ModifierTaxeComponent implements OnInit {
     public informationGenerale: InformationsService,
     private route: ActivatedRoute,
     private notificationToast: ToastNotificationService,
-    private taxeService:TaxeService) { }
+    private taxeService:TaxeService,
+    private list : ListTaxeComponent) { }
     private routeSub: Subscription;
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
-      const transportId = params['id'];
-      console.log("test id here");
-      console.log(transportId);
-      this.transporId = transportId;
+  this.getTaxe();
 
-    });
-    console.log("test this.transporId");
-    console.log(this.transporId);
-    this.getTaxe(this.transporId);
+
+
   }
 
-  getTaxe(id) {
-    console.log("getTaxeTest"+id);
+  getTaxe() {
+
     this.isLoading = true
     this.taxeService.get(this.id)
       .subscribe(
@@ -67,30 +61,33 @@ export class ModifierTaxeComponent implements OnInit {
             this.taxe[key] = this.request[key]
           }
           }
+          this.getAllParametres()
         },
         error => {
           this.isLoading = false
-          alert("Désole, ilya un problème de connexion internet")
+          alert("Désole, il y a un problème de connexion internet")
         });
   }
 
   controleInputs() {
+    //reset Formulaire
     for (let key in this.erreurTaxe) {
       this.erreurTaxe[key] = ""
       if(document.getElementById(key) != null){
         document.getElementById(key).classList.remove("border-erreur")
       }
-    }
-    var isValid = true
-    for (let key in this.erreurTaxe) {
-      if (this.taxe[key] == "") {
-        if(document.getElementById(key) != null){
-          document.getElementById(key).classList.add("border-erreur")
-        }
-        this.erreurTaxe[key] = "Veuillez remplir ce champ"
-        isValid = false
-      }
-    }
+    }var isValid = true
+    //validation
+
+
+   if (this.taxe.taux != 0 && this.taxes.filter(x => x.taux == this.taxe.taux).length > 0) {
+    document.getElementById("taux").classList.add("border-erreur")
+
+    this.erreurTaxe.taux = "existe déja"
+    isValid = false
+  }
+
+
 
     return isValid
   }
@@ -115,7 +112,11 @@ export class ModifierTaxeComponent implements OnInit {
           console.log("test resultat"+res);
           if (resultat.status) {
            // this.closeModifierTransporteur()
-            this.notificationToast.showSuccess("Votre transporteur est bien modifiée !")
+            this.notificationToast.showSuccess("Votre taxe est bien modifiée !")
+            //myModal.modal('hide');
+            //$("#myModal").modal('hide');
+            this.list.closeModal();
+            this.list.getTaxes();
           }
         },
         error => {
@@ -129,6 +130,23 @@ export class ModifierTaxeComponent implements OnInit {
       this.taxe[key] = ""
     }
   }
+  getAllParametres() {
+    this.isLoading = true
+
+  this.taxeService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.taxes = resultat.taxes.filter(x=>x.id != this.id)
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
 
 
 }

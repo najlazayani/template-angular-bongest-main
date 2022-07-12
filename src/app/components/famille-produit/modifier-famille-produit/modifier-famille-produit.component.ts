@@ -27,7 +27,7 @@ export class ModifierFamilleProduitComponent implements OnInit {
   transporId;
   ngOnChanges(changes: SimpleChanges) {
     if (this.id.length > 1) {
-      this.getFamilleProduit(this.id)
+      this.getFamilleProduit()
     }
 
 
@@ -39,20 +39,10 @@ export class ModifierFamilleProduitComponent implements OnInit {
     private routeSub: Subscription;
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
-      const transportId = params['id'];
-      console.log("test id here");
-      console.log(transportId);
-      this.transporId = transportId;
 
-    });
-    console.log("test this.transporId");
-    console.log(this.transporId);
-    this.getFamilleProduit(this.transporId);
+    this.getFamilleProduit();
   }
-  getFamilleProduit(id) {
+  getFamilleProduit() {
     //console.log("getFamilleProduitTest"+id);
     this.isLoading = true
     this.familleProduitService.get(this.id)
@@ -66,30 +56,38 @@ export class ModifierFamilleProduitComponent implements OnInit {
             this.familleProduit[key] = this.request[key]
           }
           }
+          this.getAllParametres()
         },
         error => {
           this.isLoading = false
           alert("Désole, ilya un problème de connexion internet")
         });
   }
-
+  familleProduits =[];
   controleInputs() {
+    //reset Formulaire
     for (let key in this.erreurFamilleProduit) {
       this.erreurFamilleProduit[key] = ""
       if(document.getElementById(key) != null){
         document.getElementById(key).classList.remove("border-erreur")
       }
-    }
-    var isValid = true
-    for (let key in this.erreurFamilleProduit) {
-      if (this.familleProduit[key] == "") {
-        if(document.getElementById(key) != null){
-          document.getElementById(key).classList.add("border-erreur")
-        }
-        this.erreurFamilleProduit[key] = "Veuillez remplir ce champ"
-        isValid = false
-      }
-    }
+    }var isValid = true
+    //validation
+    if (this.familleProduit.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurFamilleProduit.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+   console.log(this.familleProduits);
+   if (this.familleProduit.libelle != "" && this.familleProduits.filter(x => x.libelle == this.familleProduit.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurFamilleProduit.libelle = "existe déja"
+    isValid = false
+  }
+
+
 
     return isValid
   }
@@ -114,7 +112,7 @@ export class ModifierFamilleProduitComponent implements OnInit {
           console.log("test resultat"+res);
           if (resultat.status) {
            // this.closeModifierTransporteur()
-            this.notificationToast.showSuccess("Votre transporteur est bien modifiée !")
+            this.notificationToast.showSuccess("Votre famille produit est bien modifiée !")
           }
         },
         error => {
@@ -128,5 +126,22 @@ export class ModifierFamilleProduitComponent implements OnInit {
       this.familleProduit[key] = ""
     }
   }
+  getAllParametres() {
+    this.isLoading = true
+
+  this.familleProduitService.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.familleProduits = resultat.familleProduits.filter(x=>x.id != this.id)
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
 
 }

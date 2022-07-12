@@ -20,8 +20,8 @@ export class TaxeService {
   delete(id): Observable<any> {
     return this.http.post(`${this.host+ "deleteTaxe" }/${id}`, {});
   }
-  parametre(id): Observable<any> {
-    return this.http.get(`${this.host+ "getAllParametres"}/${id}`);
+  parametre(): Observable<any> {
+    return this.http.get(`${this.host+ "getAllParametres"}`);
   }
   get(id): Observable<any> {
     console.log("test id service"+id);

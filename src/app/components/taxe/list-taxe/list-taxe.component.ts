@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { FonctionPartagesService } from 'src/app/services/fonction-partages.service';
 import { InformationsService } from 'src/app/services/informations.service';
 import { TaxeService } from 'src/app/services/taxe.service';
@@ -67,6 +67,12 @@ export class ListTaxeComponent implements OnInit {
  })
  this.getTaxes()}
 
+
+
+ closeModal(){
+this.getDismissReason(ModalDismissReasons.BACKDROP_CLICK);
+ }
+
   ngOnInit(): void {
   }
   isLoading = false
@@ -105,7 +111,7 @@ export class ListTaxeComponent implements OnInit {
       },
       error => {
         this.isLoading = false
-        alert("Désole, ilya un problème de connexion internet")
+        alert("Désolé, il y a un problème de connexion internet")
       });
   }
 
@@ -213,7 +219,7 @@ export class ListTaxeComponent implements OnInit {
         },
         error => {
           this.isLoading = false
-          alert("Désole, ilya un problème de connexion internet")
+          alert("Désolé, il y a un problème de connexion internet")
         });
 
   }
@@ -221,7 +227,7 @@ export class ListTaxeComponent implements OnInit {
   openModalDelete(id, params2) {
     this.idDeleteModal = id
     this.isOpenModalDelete = true
-    this.params1Delete = "Le transporteur"
+    this.params1Delete = "Le taxe"
     this.params2Delete = params2
   }
 

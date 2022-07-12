@@ -20,6 +20,7 @@ import { ModifierTypeCompteurComponent } from './type-compteur/modifier-type-com
 import { AjoutFamilleProduitComponent } from './famille-produit/ajout-famille-produit/ajout-famille-produit.component';
 import { ListFamilleProduitComponent } from './famille-produit/list-famille-produit/list-famille-produit.component';
 import { ModifierFamilleProduitComponent } from './famille-produit/modifier-famille-produit/modifier-famille-produit.component';
+import { ListTypePlatComponent } from './type-plat/list-type-plat/list-type-plat.component';
 //import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
 //import { ListTypeDepartementComponent } from '../components/typeDepartement/list-type-departement/list-type-departement.component';
 
@@ -36,7 +37,8 @@ import { ModifierFamilleProduitComponent } from './famille-produit/modifier-fami
     ModifierTypeCompteurComponent,
     AjoutFamilleProduitComponent,
     ListFamilleProduitComponent,
-    ModifierFamilleProduitComponent
+    ModifierFamilleProduitComponent,
+    ListTypePlatComponent
     //PopupTransporteurComponent,
     //ListTypeDepartementComponent,
   ],

@@ -44,7 +44,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
 
   }
   getTypeDepartement() {
-    console.log("getTypeDepartementTest"+this.id);
+    //console.log("getTypeDepartementTest"+this.id);
     this.isLoading = true
     this.typeDepartementService.get(this.id)
       .subscribe(
@@ -61,7 +61,7 @@ export class ModifierTypeDepartementComponent implements OnInit {
         },
         error => {
           this.isLoading = false
-          alert("Désole, ilya un problème de connexion internet")
+          alert("Désole, il y a un problème de connexion internet")
         });
   }
 

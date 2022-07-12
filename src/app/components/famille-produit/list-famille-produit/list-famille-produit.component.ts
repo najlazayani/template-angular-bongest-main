@@ -229,7 +229,7 @@ export class ListFamilleProduitComponent implements OnInit {
   openModalDelete(id, params2) {
     this.idDeleteModal = id
     this.isOpenModalDelete = true
-    this.params1Delete = "Le transporteur"
+    this.params1Delete = "Famille produit"
     this.params2Delete = params2
   }
 

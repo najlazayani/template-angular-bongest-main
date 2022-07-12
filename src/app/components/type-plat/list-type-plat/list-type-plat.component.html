@@ -1,5 +1,6 @@
+
 <div class="col-xl-14">
-  <app-card cardTitle="Liste familleProduits" blockClass="table-border-style">
+  <app-card cardTitle="Liste Type Plats" blockClass="table-border-style">
       <form [formGroup]="formC">
           <div class="category-page-wrapper">
               <div class="result-inner">
@@ -8,7 +9,7 @@
               <div class="pagination-inner">
                   <button type="button" class="btn btn-info ng-tns-c112-14"  (click)="open2(mymodal2) "
                       style="font-size: 12px; padding:5px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
-                      Ajouter famille produit <i class="fas fa-plus"></i>
+                      Ajouter Type Plat <i class="fas fa-plus"></i>
                   </button>
 
                   <ul class="pagination">
@@ -25,14 +26,14 @@
                   <div class="th-tableau2" style="margin-top:5px;">
                       <select class="form-control form-control-sm"
                           style="font-size: 12px; max-width: 58px; padding-left: 3px;" formControlName="limit"
-                          (change)="getFamilleProduits()">
+                          (change)="getTypePlats()">
                           <option value=3>3</option>
                           <option value=4>4</option>
                           <option value=5>5</option>
                           <option value=10>10</option>
                       </select>
 
-                      <button (click)="getFamilleProduits()" class="btn btn-info ng-tns-c112-14"
+                      <button (click)="getTypePlats()" class="btn btn-info ng-tns-c112-14"
                           style="font-size: 15px; padding:2px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
                           <i class="feather icon-search"></i>
                       </button>
@@ -77,12 +78,12 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let item of familleProduits">
+                      <tr *ngFor="let item of typePlats">
 
                           <td *ngFor="let key of objectKeys(itemsVariable)">{{item[key]}}</td>
                           <td>
 
-                              <a _ngcontent-myx-c121="" (click)="open(mymodal, item.id) "
+                              <a _ngcontent-myx-c121="" (click)="open(mymodal) "
                                   class="btn btn-icon btn-outline-success" style="margin-right: 5px;">
                                   <i _ngcontent-myx-c121="" class="feather icon-edit"></i>
                               </a>
@@ -131,7 +132,7 @@
 
   <div class="modal-body" >
 
-<app-modifier-famille-produit  [id]="id"></app-modifier-famille-produit>
+<!-- <app-modifier-taxe  [id]="id"></app-modifier-taxe> -->
   </div>
 
   <!-- <div class="modal-footer">
@@ -159,7 +160,7 @@
 
   <div class="modal-body" >
 
-<app-ajout-famille-produit  ></app-ajout-famille-produit>
+<!-- <app-ajout-taxe  ></app-ajout-taxe> -->
   </div>
 
   <!-- <div class="modal-footer">
