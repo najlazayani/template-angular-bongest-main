@@ -9,6 +9,7 @@
                     <label for="libelle" class="col-sm-4 col-form-label">Libellé</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="libelle" id="libelle" [(ngModel)]="famille.libelle" style="width:270px ;">
+                        <p *ngIf="erreurFamille.libelle != ''" class="erreur">{{erreurFamille.libelle}}</p>
 
                     </div>
                 </div>

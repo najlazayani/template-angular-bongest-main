@@ -9,7 +9,11 @@
                 <div class="form-group row">
                     <label for="libelle" class="col-sm-4 col-form-label">libellé</label>
                     <div class="col-sm-8">
+
                         <input type="text" class="form-control" name="libelle" id="libelle" placeholder="Enter libelle" [(ngModel)]="reclamation.libelle">
+
+                        <p *ngIf="erreurReclamation.libelle != ''" class="erreur">{{erreurReclamation.libelle}}</p>
+
                     </div>
                 </div>
                 <div class="form-group row">

@@ -13,7 +13,24 @@ import { ToastNotificationService } from 'src/app/services/toast-notification.se
 export class AjoutFamilleComponent implements OnInit {
   FamilleFormGroup: FormGroup;
   objectKeys = Object.keys;
+  familles=[]
+  getAllParametres() {
+    this.isLoading = true
 
+  this.familleServ.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.familles = resultat.familles
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
   @Output() closeModalAjoutFamille = new EventEmitter<string>();
 
   @Input() isPopup = false
@@ -44,7 +61,7 @@ request = new Famille()
   famille  = new Famille()
 
   erreurFamille = {
-    nom: "",
+    libelle: "",
   }
   constructor(
     private notificationToast: ToastNotificationService,
@@ -54,10 +71,45 @@ request = new Famille()
      { }
 
   ngOnInit(): void {
+    this. getAllParametres()
+
   }
+
+
+  controleInputs() {
+    console.log("test")
+    //reset Formulaire
+    for (let key in this.erreurFamille) {
+      console.log(key)
+      this.erreurFamille[key] = ""
+      if(document.getElementById(key) != null){
+        console.log(document.getElementById(key))
+        document.getElementById(key).classList.remove("border-erreur")
+      }
+    }
+    var isValid = true
+    //validation
+    if (this.famille.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurFamille.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+
+   if (this.famille.libelle != "" && this.familles.filter(x => x.libelle == this.famille.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurFamille.libelle = "existe déja"
+    isValid = false
+  }
+
+
+    return isValid
+  }
+
   isLoading = false
   AjoutFamille() {
-    if (!this.fnctModel.controleInput(this.erreurFamille, this.famille)) {
+    if (!this.controleInputs()) {
       this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
       return
     }

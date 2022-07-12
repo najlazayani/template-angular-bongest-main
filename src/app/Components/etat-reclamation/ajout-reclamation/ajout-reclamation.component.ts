@@ -16,7 +16,24 @@ export class AjoutReclamationComponent implements OnInit {
 reclamationFormGroup: FormGroup;
   lienAjoute = "/reclamations/newReclamation"
   objectKeys = Object.keys;
+reclamations=[]
+  getAllParametres() {
+    this.isLoading = true
 
+  this.reclamationServ.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.reclamations = resultat.reclamations
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
   @Output() closeModalAjoutReclamation = new EventEmitter<string>();
 
   @Input() isPopup = false
@@ -58,14 +75,45 @@ reclamationFormGroup: FormGroup;
      { }
 
   ngOnInit(): void {
+    this. getAllParametres()
+  }
+  controleInputs() {
+    console.log("test")
+    //reset Formulaire
+    for (let key in this.erreurReclamation) {
+      console.log(key)
+      this.erreurReclamation[key] = ""
+      if(document.getElementById(key) != null){
+        console.log(document.getElementById(key))
+        document.getElementById(key).classList.remove("border-erreur")
+      }
+    }
+    var isValid = true
+    //validation
+    if (this.reclamation.libelle == "") {
+     document.getElementById("libelle").classList.add("border-erreur")
+
+     this.erreurReclamation.libelle = "Veuillez remplir ce champ"
+     isValid = false
+   }
+
+   if (this.reclamation.libelle != "" && this.reclamations.filter(x => x.libelle == this.reclamation.libelle).length > 0) {
+    document.getElementById("libelle").classList.add("border-erreur")
+
+    this.erreurReclamation.libelle = "existe déja"
+    isValid = false
+  }
+
+
+    return isValid
   }
 
   isLoading = false
   ajoutReclamation() {
-    if (!this.fnctModel.controleInput(this.erreurReclamation, this.reclamation)) {
-      this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
-      return
-    }
+      if (!this.controleInputs()) {
+        this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
+        return
+      }
     for (let key in this.reclamation) {
       this.request[key] = this.reclamation[key]
     }
@@ -95,8 +143,8 @@ reclamationFormGroup: FormGroup;
           this.isLoading = false
           alert("Désole, il y a un problème de connexion internet")
         });
-  }
-
+      }
+  
   reseteFormulaire() {
     for (let key in this.erreurReclamation) {
       this.reclamation[key] = ""
@@ -106,4 +154,5 @@ reclamationFormGroup: FormGroup;
     var x= (<HTMLInputElement>document.getElementById('couleur')).value;
 console.log(x)
     return x  }
+
 }

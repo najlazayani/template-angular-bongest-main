@@ -19,6 +19,26 @@ export class ModifierParametresComponent implements OnInit {
   objectKeys = Object.keys;
 
   idT = this.parametreServ.currentID;
+  parametres=[]
+  getAllParametres() {
+    this.isLoading = true
+
+  this.parametreServ.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.parametres = resultat.parametres.filter(x=> x.id != this.id)
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
+
+
 
   @Output() closeModalModifierParametre = new EventEmitter<string>();
 
@@ -41,6 +61,7 @@ export class ModifierParametresComponent implements OnInit {
   parametre = new Parametre()
   erreurParametre = {
     nom_parametre: "",
+    valeur:"",
   }
 
   parametreId;
@@ -96,26 +117,53 @@ export class ModifierParametresComponent implements OnInit {
 
     // if (this.id.length > 1) {
     //   this.getTransporteur(this.id)
+   
     // }
+    this. getAllParametres()
+
   }
 
   controleInputs() {
+    console.log("test")
+    //reset Formulaire
     for (let key in this.erreurParametre) {
+      console.log(key)
       this.erreurParametre[key] = ""
       if(document.getElementById(key) != null){
+        console.log(document.getElementById(key))
         document.getElementById(key).classList.remove("border-erreur")
       }
     }
     var isValid = true
-    for (let key in this.erreurParametre) {
-      if (this.parametre[key] == "") {
-        if(document.getElementById(key) != null){
-          document.getElementById(key).classList.add("border-erreur")
-        }
-        this.erreurParametre[key] = "Veuillez remplir ce champ"
-        isValid = false
-      }
-    }
+    //validation
+    if (this.parametre.nom_parametre == ""  ) {
+     document.getElementById("nom_parametre").classList.add("border-erreur")
+console.log('test')
+     this.erreurParametre.nom_parametre = "Veuillez remplir ce champ"
+
+     isValid = false
+   }
+   if (this.parametre.valeur == ""  ) {
+    document.getElementById("valeur").classList.add("border-erreur")
+    console.log('test')
+    this.erreurParametre.valeur = "Veuillez remplir ce champ"
+
+    isValid = false
+  }
+   if (this.parametre.nom_parametre != "" && this.parametres.filter(x => x.nom_parametre == this.parametre.nom_parametre).length > 0) {
+    document.getElementById("nom_parametre").classList.add("border-erreur")
+
+    this.erreurParametre.nom_parametre = "existe déja"
+    isValid = false
+  }
+  if (this.parametre.valeur != "" && this.parametres.filter(x => x.valeur == this.parametre.valeur).length > 0) {
+    document.getElementById("valeur").classList.add("border-erreur")
+
+    this.erreurParametre.valeur = "existe déja"
+    isValid = false
+  }
+
+
 
     return isValid
   }

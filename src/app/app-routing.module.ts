@@ -60,7 +60,10 @@ const routes: Routes = [
         path: 'sample-page',
         loadChildren: () => import('./demo/pages/sample-page/sample-page.module').then(module => module.SamplePageModule)
       },
-
+      {
+        path: 'typeequipement',
+        loadChildren: () => import('./Components/type-equipement/type-equipement.module.').then(module => module.EquipementModule)
+      },
       {
         path: 'reclamation',
         loadChildren: () => import('./Components/etat-reclamation/reclamation.module').then(module => module.ReclamationModule)

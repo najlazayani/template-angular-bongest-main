@@ -50,7 +50,7 @@ currentID;
     return this.http.post(`${this.host+ "deleteFamille" }/${id}`, {});
   }
 
-  parametre(id): Observable<any> {
-    return this.http.get(`${this.host+ "getAllParametres"}/${id}`);
+  parametre(): Observable<any> {
+    return this.http.get(`${this.host+ "getAllParametres"}`);
   }
 }

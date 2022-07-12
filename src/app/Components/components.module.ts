@@ -13,6 +13,9 @@ import { ModifierParametresComponent } from './parametres/modifier-parametres/mo
 import { ListReclamationComponent } from './etat-reclamation/list-reclamation/list-reclamation.component';
 import { ModifierReclamationComponent } from './etat-reclamation/modifier-reclamation/modifier-reclamation.component';
 import { AjoutReclamationComponent } from './etat-reclamation/ajout-reclamation/ajout-reclamation.component';
+import { AjoutTypeequipementComponent } from './type-equipement/ajout-typeequipement/ajout-typeequipement.component';
+import { ListTypeequipementComponent } from './type-equipement/list-typeequipement/list-typeequipement.component';
+import { ModifierTypeequipementComponent } from './type-equipement/modifier-typeequipement/modifier-typeequipement.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { AjoutReclamationComponent } from './etat-reclamation/ajout-reclamation/
     ModifierParametresComponent,
     ListReclamationComponent,
     ModifierReclamationComponent,
-    AjoutReclamationComponent
+    AjoutReclamationComponent,
+    AjoutTypeequipementComponent,
+    ListTypeequipementComponent,
+    ModifierTypeequipementComponent
   ],
   imports: [
     CommonModule,

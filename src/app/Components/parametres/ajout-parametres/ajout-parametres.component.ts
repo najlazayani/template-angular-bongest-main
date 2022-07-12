@@ -17,6 +17,24 @@ export class AjoutParametresComponent implements OnInit {
   transporteurFormGroup: FormGroup;
   lienAjoute = "/parametres/newParametre"
   objectKeys = Object.keys;
+  parametres=[]
+  getAllParametres() {
+    this.isLoading = true
+
+  this.parametreServ.parametre()
+      .subscribe(
+        res => {
+          this.isLoading = false
+          let resultat: any = res
+          if (resultat.status) {
+            this.parametres = resultat.parametres
+          }
+        },
+        error => {
+          this.isLoading = false
+          alert("Désole, il y a un problème de connexion internet")
+        });
+    }
 
   @Output() closeModalAjoutParametre = new EventEmitter<string>();
 
@@ -49,6 +67,7 @@ export class AjoutParametresComponent implements OnInit {
 
   erreurParametre = {
     nom_parametre: "",
+    valeur: "",
   }
   constructor(
     private notificationToast: ToastNotificationService,
@@ -59,11 +78,56 @@ export class AjoutParametresComponent implements OnInit {
      { }
 
   ngOnInit(): void {
+    this. getAllParametres()
+
+  }
+  controleInputs() {
+    console.log("test")
+    //reset Formulaire
+    for (let key in this.erreurParametre) {
+      console.log(key)
+      this.erreurParametre[key] = ""
+      if(document.getElementById(key) != null){
+        console.log(document.getElementById(key))
+        document.getElementById(key).classList.remove("border-erreur")
+      }
+    }
+    var isValid = true
+    //validation
+    if (this.parametre.nom_parametre == ""  ) {
+     document.getElementById("nom_parametre").classList.add("border-erreur")
+console.log('test')
+     this.erreurParametre.nom_parametre = "Veuillez remplir ce champ"
+
+     isValid = false
+   }
+   if (this.parametre.valeur == ""  ) {
+    document.getElementById("valeur").classList.add("border-erreur")
+    console.log('test')
+    this.erreurParametre.valeur = "Veuillez remplir ce champ"
+
+    isValid = false
+  }
+   if (this.parametre.nom_parametre != "" && this.parametres.filter(x => x.nom_parametre == this.parametre.nom_parametre).length > 0) {
+    document.getElementById("nom_parametre").classList.add("border-erreur")
+
+    this.erreurParametre.nom_parametre = "existe déja"
+    isValid = false
+  }
+  if (this.parametre.valeur != "" && this.parametres.filter(x => x.valeur == this.parametre.valeur).length > 0) {
+    document.getElementById("valeur").classList.add("border-erreur")
+
+    this.erreurParametre.valeur = "existe déja"
+    isValid = false
   }
 
+
+
+    return isValid
+  }
   isLoading = false
   ajoutParametre() {
-    if (!this.fnctModel.controleInput(this.erreurParametre, this.parametre)) {
+    if (!this.controleInputs()) {
       this.notificationToast.showError("Veuillez remplir les champs obligatoires !")
       return
     }
@@ -80,7 +144,7 @@ export class AjoutParametresComponent implements OnInit {
           if (resultat.status) {
             console.log(resultat)
             this.closeAjoutParametre()
-            this.notificationToast.showSuccess("Votre transporteur est bien enregistrée !")
+            this.notificationToast.showSuccess("Votre parametres est bien enregistrée !")
           }
         },
         error => {
