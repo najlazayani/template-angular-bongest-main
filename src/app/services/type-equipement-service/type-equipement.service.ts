@@ -12,7 +12,7 @@ export class TypeEquipementService {
   host = this.informationGenerale.baseUrl + "/typeequipement/"
   private typeEquipements : TypeEquipement[]=[];
   private typeEquipements$ = new Subject<TypeEquipement[]>()
-  readonly url = "http://localhost:4000/typeDepartements/images"
+  readonly url = "http://localhost:4000/typeequipement/images"
 
 
   constructor(private http: HttpClient,
@@ -54,7 +54,7 @@ uploadImage(image: File): Observable<any> {
 
   formData.append('myFiles', image);
 
-  return this.http.post(this.informationGenerale.baseUrl+'/typeEquipements/images', formData);
+  return this.http.post(this.informationGenerale.baseUrl+'/typeequipement/images', formData);
 }
 
 create(typeEquipement,request): Observable<any> {
