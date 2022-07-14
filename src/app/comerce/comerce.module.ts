@@ -12,6 +12,10 @@ import { AjoutTransporteurComponent } from './transporteur/ajout-transporteur/aj
 import { ListTransporteurComponent } from './transporteur/list-transporteur/list-transporteur.component';
 import { ModifierTransporteurComponent } from './transporteur/modifier-transporteur/modifier-transporteur.component';
 import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-transporteur.component';
+<<<<<<< HEAD
+//import { ListTypeDepartementComponent } from '../components/typeDepartement/list-type-departement/list-type-departement.component';
+=======
+>>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { PopupTransporteurComponent } from './popups/popup-transporteur/popup-tr
     ListTransporteurComponent,
     ModifierTransporteurComponent,
     PopupTransporteurComponent,
+<<<<<<< HEAD
+    //ListTypeDepartementComponent,
+=======
+>>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
   ],
   imports: [
     CommonModule,

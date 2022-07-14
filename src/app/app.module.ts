@@ -29,9 +29,12 @@ import { NavCenterComponent } from './theme/layout/admin/nav-bar/nav-center/nav-
 import { SharedGlobalModule } from './shared-global/shared-global.module';
 import { SuperAdminComponent } from './theme/layout/super-admin/super-admin.component';
 import { ImportationsPageComponent } from './importations-page/importations-page.component';
-import { PopupsComponent } from './Components/popups/popups.component';
-import { ComponentsModule } from './Components/components.module';
+
+import { ComponentsModule } from './components/components.module';
 import { FamilleModule } from './Components/famille-equipement/famille.module';
+
+
+
 
 @NgModule({
   declarations: [
@@ -53,8 +56,7 @@ import { FamilleModule } from './Components/famille-equipement/famille.module';
     NavCenterComponent,
     SuperAdminComponent,
     ImportationsPageComponent,
-    PopupsComponent
-   
+
 
   ],
   imports: [
@@ -73,7 +75,8 @@ import { FamilleModule } from './Components/famille-equipement/famille.module';
     HttpClientModule,
     FormsModule, ReactiveFormsModule,
     NgbAccordionModule, NgbCollapseModule,
-    NgbPopoverModule
+    NgbPopoverModule,
+
 
 
   ],

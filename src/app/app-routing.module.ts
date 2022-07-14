@@ -60,6 +60,35 @@ const routes: Routes = [
         path: 'sample-page',
         loadChildren: () => import('./demo/pages/sample-page/sample-page.module').then(module => module.SamplePageModule)
       },
+
+
+
+      {
+        path: 'transporteur',
+        loadChildren: () => import('./comerce/transporteur/transporteur.module').then(module => module.TransporteurModule)
+      },
+
+        {
+        path: 'type-departement',
+       loadChildren: () => import('./components/type-departement/type-departement.module').then(module => module.TypeDepartementModule)
+       },
+       {
+       path: 'taxe',
+      loadChildren: () => import('./components/taxe/taxe.module').then(module => module.TaxeModule)
+      },
+      {
+        path: 'type-compteur',
+       loadChildren: () => import('./components/type-compteur/type-compteur.module').then(module => module.TypeCompteurModule)
+       },
+       {
+        path: 'famille-produit',
+        loadChildren: () => import('./components/famille-produit/famille-produit.module').then(module => module.FamilleProduitModule)
+      },
+
+      {
+        path: 'type-plat',
+       loadChildren: () => import('./components/type-plat/type-plat.module').then(module => module.TypePlatModule)
+       },
       {
         path: 'typeequipement',
         loadChildren: () => import('./Components/type-equipement/type-equipement.module.').then(module => module.EquipementModule)
@@ -73,11 +102,8 @@ const routes: Routes = [
         loadChildren: () => import('./Components/famille-equipement/famille.module').then(module => module.FamilleModule)
       },
 
-      {
-        path: 'transporteur',
-        loadChildren: () => import('./comerce/transporteur/transporteur.module').then(module => module.TransporteurModule)
-      },
-      
+
+
       {
         path: 'parametre',
         loadChildren: () => import('./Components/parametres/parametres.module').then(module => module.ParametresModule)
