@@ -6,17 +6,11 @@
                     <!--Showing 1 to 8 of 10 (2 Pages)-->
                 </div>
                 <div class="pagination-inner">
-<<<<<<< HEAD
                     <button type="button" class="btn btn-info ng-tns-c112-14"  (click)="open2(mymodal2) "
                         style="font-size: 12px; padding:5px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
                         Ajouter Transporteur <i class="fas fa-plus"></i>
                     </button>
 
-=======
-                    <button type="button" class="btn btn-info ng-tns-c112-14" (click)="ouvrirFenetreAjout()" style="font-size: 12px; padding:5px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
-                        Ajouter Transporteur <i class="fas fa-plus"></i>
-                    </button>
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
                     <ul class="pagination">
                         <li>
                             <i _ngcontent-eep-c121="" class="feather icon-camera" (click)="printout()"></i>
@@ -29,25 +23,17 @@
                         </li>
                     </ul>
                     <div class="th-tableau2" style="margin-top:5px;">
-<<<<<<< HEAD
                         <select class="form-control form-control-sm"
                             style="font-size: 12px; max-width: 58px; padding-left: 3px;" formControlName="limit"
                             (change)="getTransporteurs()">
-=======
-                        <select class="form-control form-control-sm" style="font-size: 12px; max-width: 58px; padding-left: 3px;" formControlName="limit" (change)="getTransporteurs()">
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
                             <option value=3>3</option>
                             <option value=4>4</option>
                             <option value=5>5</option>
                             <option value=10>10</option>
                         </select>
 
-<<<<<<< HEAD
                         <button (click)="getTransporteurs()" class="btn btn-info ng-tns-c112-14"
                             style="font-size: 15px; padding:2px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
-=======
-                        <button (click)="getTransporteurs()" class="btn btn-info ng-tns-c112-14" style="font-size: 15px; padding:2px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
                             <i class="feather icon-search"></i>
                         </button>
 
@@ -65,12 +51,8 @@
                         <tr class="rechercherligne">
                             <th *ngFor="let key of objectKeys(itemsVariable)">
                                 <div class="form-group">
-<<<<<<< HEAD
                                     <input type="text" placeholder="Recherche" class="form-control"
                                         [formControlName]="key">
-=======
-                                    <input type="text" placeholder="Recherche" class="form-control" [formControlName]="key">
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
                                 </div>
                             </th>
 
@@ -100,7 +82,6 @@
                             <td *ngFor="let key of objectKeys(itemsVariable)">{{item[key]}}</td>
                             <td>
 
-<<<<<<< HEAD
                                 <a _ngcontent-myx-c121="" (click)="open(mymodal, item.id) "
                                     class="btn btn-icon btn-outline-success" style="margin-right: 5px;">
                                     <i _ngcontent-myx-c121="" class="feather icon-edit"></i>
@@ -108,13 +89,6 @@
 
                                 <a _ngcontent-myx-c121="" href="javascript:" class="btn btn-icon btn-outline-danger"
                                     (click)="openModalDelete(item.id,item.nom)">
-=======
-                                <a _ngcontent-myx-c121="" (click)="open(mymodal, item.id) " class="btn btn-icon btn-outline-success" style="margin-right: 5px;">
-                                    <i _ngcontent-myx-c121="" class="feather icon-edit"></i>
-                                </a>
-
-                                <a _ngcontent-myx-c121="" href="javascript:" class="btn btn-icon btn-outline-danger" (click)="openModalDelete(item.id,item.nom)">
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
                                     <i _ngcontent-myx-c121="" class="feather icon-trash-2"></i>
                                 </a>
 
@@ -135,13 +109,9 @@
 
         </form>
 
-<<<<<<< HEAD
         <app-delete-modal [isLoading]="isLoading" [isOpenModalDelete]="isOpenModalDelete"
             [idDeleteModal]="idDeleteModal" [params1Delete]="params1Delete" [params2Delete]="params2Delete"
             (deleteItem)="deleteItem()" (closeModalDelete)="closeModalDelete()"></app-delete-modal>
-=======
-        <app-delete-modal [isLoading]="isLoading" [isOpenModalDelete]="isOpenModalDelete" [idDeleteModal]="idDeleteModal" [params1Delete]="params1Delete" [params2Delete]="params2Delete" (deleteItem)="deleteItem()" (closeModalDelete)="closeModalDelete()"></app-delete-modal>
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
     </app-card>
 </div>
 
@@ -152,7 +122,6 @@
 
 
 
-<<<<<<< HEAD
 <ng-template #mymodal let-modal >
 
   <div class="modal-header" >
@@ -160,21 +129,11 @@
     <h4 class="modal-title" id="modal-basic-title">Modification</h4>
 
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-=======
-<ng-template #mymodal let-modal>
-
-    <div class="modal-header">
-
-        <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
-
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
 
       <span aria-hidden="true">×</span>
 
     </button>
 
-<<<<<<< HEAD
   </div>
 
   <div class="modal-body" >
@@ -221,19 +180,3 @@
 
 
 
-=======
-    </div>
-
-    <div class="modal-body">
-
-        <app-modifier-transporteur [id]="id"></app-modifier-transporteur>
-    </div>
-
-    <div class="modal-footer">
-
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-
-    </div>
-
-</ng-template>
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TypePlat } from 'src/app/model/typePlat';
 import { FonctionPartagesService } from 'src/app/services/fonction-partages.service';
 import { InformationsService } from 'src/app/services/informations.service';
+import { ToastNotificationService } from 'src/app/services/toast-notification.service';
 import { TypePlatService } from 'src/app/services/type-plat.service';
 import { UtiliteService } from 'src/app/services/utilite.service';
 
@@ -20,6 +22,7 @@ export class ListTypePlatComponent implements OnInit {
    currentTr ="" ;
    Tr ;
    closeResult:string;
+   typePlat = new TypePlat()
 
    objectKeys = Object.keys;
    items = {
@@ -53,7 +56,8 @@ export class ListTypePlatComponent implements OnInit {
     page: 1
   }
 
-  constructor( private router :Router,
+  constructor( private notificationToast: ToastNotificationService,
+    private router :Router,
     private utilite:UtiliteService,
     private fonctionPartagesService:FonctionPartagesService,
     private fb: FormBuilder,
@@ -322,6 +326,27 @@ private getDismissReason(reason: any): string {
   }
 
 }
+ ajouterTypePlat(){
+  this.isLoading = true
+  this.typePlatService.create(this.typePlat, this.request)
+    .subscribe(
+      res => {
+        this.isLoading = false
+        let resultat: any = res
+        if (resultat.status) {
+          console.log(resultat)
+          //this.closeAjoutTransporteur()
+          this.notificationToast.showSuccess("Votre taxe est bien enregistrée !")
+
+        }
+      },
+      error => {
+        this.isLoading = false
+        alert("Désolé, il y a un problème de connexion internet")
+      });
+ }
+
+
 
 
 

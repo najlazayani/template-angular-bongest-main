@@ -329,13 +329,9 @@ export class ListTransporteurComponent implements OnInit {
   open(content , id) {
 
     this.id = id
-<<<<<<< HEAD
     console.log("test id open"+id);
     console.log("test content");
     console.log(content);
-=======
-    console.log(id)
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       //this.modalService.open(PopupTransporteurComponent,{ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -355,7 +351,6 @@ export class ListTransporteurComponent implements OnInit {
   }
 
 
-<<<<<<< HEAD
   open2(content) {
 
 
@@ -379,8 +374,6 @@ export class ListTransporteurComponent implements OnInit {
 
 
 
-=======
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
   private getDismissReason(reason: any): string {
 
     if (reason === ModalDismissReasons.ESC) {
@@ -403,12 +396,9 @@ export class ListTransporteurComponent implements OnInit {
 
 
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 28e389574ef18da4f503dacb52abbe79f79a146b
 }
 
 
