@@ -99,6 +99,7 @@ imageData : string
         this.imageData = reader.result as string;
       }
       reader.readAsDataURL(file);
+      console.log(file)
     }
     this.file = file
   }
@@ -137,7 +138,13 @@ imageData : string
      this.erreurTypeEquipement.libelle = "Veuillez remplir ce champ"
      isValid = false
    }
-console.log(this.typeEquipements);
+   if (this.typeEquipement.prefixe == "") {
+    document.getElementById("prefixe").classList.add("border-erreur")
+
+    this.erreurTypeEquipement.prefixe = "Veuillez remplir ce champ"
+    isValid = false
+  }
+
    if (this.typeEquipement.libelle != "" && this.typeEquipements.filter(x => x.libelle == this.typeEquipement.libelle).length > 0) {
     document.getElementById("libelle").classList.add("border-erreur")
 
@@ -174,7 +181,7 @@ console.log(this.typeEquipements);
           if (resultat.status) {
             console.log(resultat)
             this.closeAjoutTypeEquipement()
-            this.notificationToast.showSuccess("Votre type de departement est bien enregistrée !")
+            this.notificationToast.showSuccess("Votre type d'equipement est bien enregistrée !")
           }
         },
         error => {

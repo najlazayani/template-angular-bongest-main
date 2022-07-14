@@ -70,7 +70,14 @@ const NavigationItems = [
             icon: 'feather icon-shuffle'
           },
           
-         
+          {
+            id: 'famille',
+            title: 'Famille d equipement',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/famille/list',
+            icon: 'feather icon-shuffle'
+          },
 
           {
             id: 'reclamation',
@@ -81,12 +88,13 @@ const NavigationItems = [
             icon: 'feather icon-shuffle'
           },
         
+   
           {
-            id: 'famille',
-            title: 'Famille d equipement',
+            id: 'typeequipement',
+            title: 'Type d"equipement',
             type: 'item',
             classes: 'nav-item',
-            url: '/famille/list',
+            url: '/typeequipement/list',
             icon: 'feather icon-shuffle'
           },
           {
