@@ -4,6 +4,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { TypeCompteurRoutingModule } from './type-compteur-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModel } from '@angular/forms';
 
 
 
@@ -12,7 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     TypeCompteurRoutingModule,
-    SharedModule
+    SharedModule,
+
   ]
 })
 export class TypeCompteurModule { }

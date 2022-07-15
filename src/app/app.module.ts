@@ -21,7 +21,7 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
-import { NgbButtonsModule, NgbDropdownModule, NgbModal, NgbPopoverModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbButtonsModule, NgbDropdownModule,  NgbPopoverModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbAccordionModule, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
 import { ComerceModule } from './comerce/comerce.module';
 import { SharedModule } from './theme/shared/shared.module';
@@ -60,8 +60,9 @@ import { FamilleModule } from './Components/famille-equipement/famille.module';
 
   ],
   imports: [
-    FamilleModule,
     ComponentsModule,
+
+
     ComerceModule,
     SharedGlobalModule,
     SharedModule,

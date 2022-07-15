@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListTypePlatComponent}  from './list-type-plat/list-type-plat.component';
+
 const routes: Routes = [
    {
     path: '',

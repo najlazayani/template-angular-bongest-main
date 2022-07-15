@@ -1,4 +1,5 @@
-import { ListFamilleProduitRoutingModule } from './list-famille-produit-routing.module';
+//import { ListFamilleProduitRoutingModule } from './list-famille-produit-routing.module';
+import { ListParametresRoutingModule } from './list-parametres-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -10,9 +11,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   declarations: [],
   imports: [
     CommonModule,
-    ListFamilleProduitRoutingModule,
+    ListParametresRoutingModule,
     SharedModule,
     FormsModule
   ]
 })
-export class ListFamilleProduitModule { }
+export class ListParametresModule { }

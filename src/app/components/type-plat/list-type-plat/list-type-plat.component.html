@@ -1,17 +1,15 @@
-
 <div class="col-xl-14">
-  <app-card cardTitle="Liste Type Plats" blockClass="table-border-style">
+  <app-card cardTitle="Liste Type Plat" blockClass="table-border-style">
       <form [formGroup]="formC">
           <div class="category-page-wrapper">
               <div class="result-inner">
                   <!--Showing 1 to 8 of 10 (2 Pages)-->
               </div>
               <div class="pagination-inner">
-                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter type plat</span></a>
-                  <!-- <button type="button" class="btn btn-info ng-tns-c112-14"  (click)="open2(mymodal2) "
+                  <button type="button" class="btn btn-info ng-tns-c112-14"  (click)="open2(mymodal2) "
                       style="font-size: 12px; padding:5px; height: 30px; display: inline-block; white-space: nowrap; margin-left: 3px;">
                       Ajouter Type Plat <i class="fas fa-plus"></i>
-                  </button> -->
+                  </button>
 
                   <ul class="pagination">
                       <li>
@@ -83,11 +81,11 @@
 
                           <td *ngFor="let key of objectKeys(itemsVariable)">{{item[key]}}</td>
                           <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                              <!-- <a _ngcontent-myx-c121="" (click)="open(mymodal) "
+
+                              <a _ngcontent-myx-c121="" (click)="open(mymodal, item.id) "
                                   class="btn btn-icon btn-outline-success" style="margin-right: 5px;">
                                   <i _ngcontent-myx-c121="" class="feather icon-edit"></i>
-                              </a> -->
+                              </a>
 
                               <a _ngcontent-myx-c121="" href="javascript:" class="btn btn-icon btn-outline-danger"
                                   (click)="openModalDelete(item.id,item.libelle)">
@@ -117,157 +115,107 @@
   </app-card>
 </div>
 
+
+
+
+
+
+
+
 <ng-template #mymodal let-modal >
 
-  <div class="modal-header" >
+<div class="modal-header" >
 
-    <h4 class="modal-title" id="modal-basic-title">Modification</h4>
+  <h4 class="modal-title" id="modal-basic-title">Modification</h4>
 
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
-      <span aria-hidden="true">×</span>
+    <span aria-hidden="true">×</span>
 
-    </button>
+  </button>
 
-  </div>
 
-  <div class="modal-body" >
+</div>
 
-<!-- <app-modifier-taxe  [id]="id"></app-modifier-taxe> -->
-  </div>
+<div class="modal-body" >
 
-  <!-- <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
 
-  </div> -->
+</div>
+
+<!-- <div class="modal-footer">
+
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+
+</div> -->
 
 </ng-template>
 
 
 <ng-template #mymodal2 let-modal >
 
-  <div class="modal-header" >
+<div class="modal-header" >
 
-    <h4 class="modal-title" id="modal-basic-title">Ajout</h4>
+  <h4 class="modal-title" id="modal-basic-title">Ajout</h4>
 
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
-      <span aria-hidden="true">×</span>
+    <span aria-hidden="true">×</span>
 
-    </button>
+  </button>
 
-  </div>
+</div>
 
-  <div class="modal-body" >
+<div class="modal-body" >
 
-<!-- <app-ajout-taxe  ></app-ajout-taxe> -->
-  </div>
+  <app-card [hidHeader]="true">
+    <!-- Partie Header -->
 
-  <!-- <div class="modal-footer">
+    <div class="row">
+        <!-- Partie formulaire à Gauche en haut -->
+        <div class="col-md-12 min-Width">
+            <form action="javascript:">
+                <div class="form-group row">
+                    <label for="nom" class="col-sm-4 col-form-label">Libelle</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="libelle" id="libelle" placeholder="Enter "
+                            [(ngModel)]="typePlat.libelle"style="width:270px ;">
+                        <p *ngIf="erreurTypePlat.libelle != ''" class="erreur">{{erreurTypePlat.libelle}}</p>
+                    </div>
+                </div>
 
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
 
-  </div> -->
+
+
+            </form>
+        </div>
+    </div>
+    <button *ngIf="!isLoading" class="btn btn-primary" type="button" (click)="ajoutTypePlat()">
+      Enregister
+  </button>
+  <button *ngIf="isLoading" class="btn btn-primary" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Chargement...
+  </button>
+    <!-- <hr *ngIf="isPopup" style="width: 100%; margin-top: 10px; margin-bottom: 5px;">
+
+    <div *ngIf="isPopup" style="padding: 10px; text-align: right; padding-top:0px; padding-bottom:0px; width: 100%;">
+
+
+
+    </div> -->
+
+</app-card>
+</div>
+
+<!-- <div class="modal-footer">
+
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+
+</div> -->
 
 </ng-template>
 
-<!-- add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">
-					<h4 class="modal-title">Ajouter type plat</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label>libelle</label>
-						<input type="text" class="form-control" required>
-					</div>
 
 
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="ajouterTypePlat()">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">
-					<h4 class="modal-title">Modifier type plat</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label>libelle</label>
-						<input type="text" class="form-control" required>
-					</div>
-
-
-
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Delete Modal HTML -->
-<!-- <div id="deleteEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">
-					<h4 class="modal-title">Delete Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
-				</div>
-			</form>
-		</div>
-	</div>
-</div> -->
-
-<!-- <script>
-  $(document).ready(function(){
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function(){
-      if(this.checked){
-        checkbox.each(function(){
-          this.checked = true;
-        });
-      } else{
-        checkbox.each(function(){
-          this.checked = false;
-        });
-      }
-    });
-    checkbox.click(function(){
-      if(!this.checked){
-        $("#selectAll").prop("checked", false);
-      }
-    });
-  });
-  </script> -->
 

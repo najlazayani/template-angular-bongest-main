@@ -1,4 +1,4 @@
-import { ListFamilleProduitRoutingModule } from './list-famille-produit-routing.module';
+import { ListReclamationRoutingModule } from './list-reclamation-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -10,9 +10,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   declarations: [],
   imports: [
     CommonModule,
-    ListFamilleProduitRoutingModule,
+    ListReclamationRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    NgbModal
   ]
 })
-export class ListFamilleProduitModule { }
+export class ListReclamationModule { }
