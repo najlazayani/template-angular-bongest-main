@@ -385,6 +385,11 @@ export class ListTypePlatComponent implements OnInit {
   }
 
 
+  //Modifier
+
+
+
+
 
 
 
